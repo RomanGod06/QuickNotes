@@ -42,7 +42,7 @@ The industry standard for graphics hardware. It is fundamentally faster because 
         * $p_{next} = p + 2\Delta y - 2\Delta x$
 
 ### Production C Code (CSPC-614P Lab 3)
-*(Note: This implementation is for the 1st Octant where $0 < m < 1$)*
+*(Note: This implementation is for the 1st Octant where 0 < m < 1)*
 ```c
 int dx = x2 - x1;
 int dy = y2 - y1;
