@@ -42,21 +42,46 @@ The industry standard for graphics hardware. It is fundamentally faster because 
         * $p_{next} = p + 2\Delta y - 2\Delta x$
 
 ### Production C Code (CSPC-614P Lab 3)
-*(Note: This implementation is for the 1st Octant where 0 < m < 1)*
 ```c
-int dx = x2 - x1;
-int dy = y2 - y1;
-int p = 2 * dy - dx;
-int y = y1;
-
-for (int x = x1; x <= x2; x++) {
-    putpixel(x, y, WHITE); 
-
-    if (p < 0) {
-        p = p + 2 * dy;
+void drawBresenhamLine(int x1, int y1, int x2, int y2) {
+    // 1. Force strictly positive distances
+    int dx = abs(x2 - x1);
+    int dy = abs(y2 - y1);
+    
+    // 2. Determine the step directions (+1 or -1)
+    int step_x = (x1 < x2) ? 1 : -1;
+    int step_y = (y1 < y2) ? 1 : -1;
+    
+    int x = x1;
+    int y = y1;
+    
+    // 3. Branch based on the driving axis (The Octant Fix)
+    if (dx > dy) {
+        // X is the driving axis (Octants 1, 4, 5, 8)
+        int p = 2 * dy - dx;
+        for (int i = 0; i <= dx; i++) {
+            putpixel(x, y, WHITE);
+            if (p < 0) {
+                p = p + 2 * dy;
+            } else {
+                y = y + step_y;
+                p = p + 2 * dy - 2 * dx;
+            }
+            x = x + step_x; // X steps every iteration
+        }
     } else {
-        y = y + 1;
-        p = p + 2 * dy - 2 * dx;
+        // Y is the driving axis (Octants 2, 3, 6, 7)
+        int p = 2 * dx - dy;
+        for (int i = 0; i <= dy; i++) {
+            putpixel(x, y, WHITE);
+            if (p < 0) {
+                p = p + 2 * dx;
+            } else {
+                x = x + step_x;
+                p = p + 2 * dx - 2 * dy;
+            }
+            y = y + step_y; // Y steps every iteration
+        }
     }
 }
 ```
