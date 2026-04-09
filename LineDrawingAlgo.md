@@ -1,4 +1,4 @@
-# 🖥️ Computer Graphics: Line Drawing Algorithms Cheat Sheet
+# Computer Graphics: Line Drawing Algorithms Cheat Sheet
 
 ## 1. Digital Differential Analyzer (DDA)
 DDA is an incremental method of scan conversion that relies on floating-point increments. It prevents aliasing (gaps) by finding the dominant axis of movement.
